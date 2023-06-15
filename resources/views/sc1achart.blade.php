@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>DashBoard SC1A</title>
+    <title>DashBoard SC2A</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -30,6 +30,7 @@
   
 	var labels =  {{ Js::from($labels) }};
 	var users =  {{ Js::from($data) }};
+	var sps =  {{ Js::from($array_sps) }};
 
 	const data = {
 	labels: labels,
@@ -55,24 +56,28 @@
 	  
 	const dataPie = {
 		labels: [
-			'Red',
-			'Blue',
-			'Yellow'
+			'Convention ' + <?php echo date('Y'); ?>,
+			'Faisabilité',
+			'Technique',
+			'Provisoire',
+			'Définitive',
 		],
 		datasets: [{
-			label: 'My First Dataset',
-			data: [300, 50, 100],
+			label: 'Récapitulatif des sous-projets',
+			data: sps,
 			backgroundColor: [
 				'rgb(255, 99, 132)',
 				'rgb(54, 162, 235)',
-				'rgb(255, 205, 86)'
+				'rgb(255, 205, 86)',
+				'rgb(125, 150, 86)',
+				'rgb(34, 205, 134)'
 			],
 			hoverOffset: 4
 		}]
 	};
 	
 	const config1b = {
-	  type: 'pie',
+	  type: 'doughnut',
 	  data: dataPie,
 	};
 	

@@ -23,7 +23,22 @@ class SC1AController extends Controller
 		}
 		
 		/** BAR CHART **/
-              
-        return view('sc1achart', compact('labels', 'data'));
+		$array_sps = [];
+		$conventions = DB::table('a_sise_sousprojet')
+						->select(DB::raw('count(*) as count'))->where('date_convention', '<=', date('Y').'-12-31')->where('date_convention', '>=', date('Y').'-01-01')->count();
+		array_push($array_sps, $conventions);				
+		$fes = DB::table('a_sise_sousprojet')
+						->select(DB::raw('count(*) as count'))->where('fes_faisabilite', '=', 'OUI')->count();
+		array_push($array_sps, $fes);
+		$recep_date = DB::table('a_sise_sousprojet')
+						->select(DB::raw('count(*) as count'))->where('recep_date', '!=', null)->count();
+		array_push($array_sps, $recep_date);
+		$recep_prov = DB::table('a_sise_sousprojet')
+						->select(DB::raw('count(*) as count'))->where('recep_prov_date', '!=', null)->count();
+		array_push($array_sps, $recep_prov);
+		$recep_def = DB::table('a_sise_sousprojet')
+						->select(DB::raw('count(*) as count'))->where('recepdef_date', '!=', null)->count();
+		array_push($array_sps, $recep_def);
+        return view('sc1achart', compact('labels', 'data', 'array_sps'));
     }
 }
